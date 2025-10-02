@@ -97,9 +97,11 @@ This creates:
 
 Now you have:
 - ✅ **Frontend deployed** and working
-- ✅ **v1 backend image** (cart memory leak)
-- ✅ **Infrastructure configured** for image switching
+- ✅ **Backend deployed** and working
+- ✅ **Infrastructure configured** for testing scenarios
 
-**Next Steps:**
-1. **Memory Leak Scenario**: [SRE-SCENARIO-1-MEMORY-LEAK.md](./SRE-SCENARIO-1-MEMORY-LEAK.md)
+**SRE Agent Setup:**
+1. Create agent - **srea-007-eastus-923**
+2. Map GitHub repo: **https://github.com/dm-chelupati/grubify.git**
+3. Connect Service Now
 
