@@ -87,11 +87,12 @@ azd up
 ```
 
 This creates:
-- Azure Container Apps Environment
-- Azure Container Registry
-- Log Analytics Workspace
-- Frontend container app
-- Backend container app
+- **Resource Group**: `rg-grubify-app`
+- **Container Registry**: `crgrubify`
+- **Container Apps Environment**: `cae-grubify`
+- **API Container App**: `ca-grubify-api`
+- **Frontend Container App**: `ca-grubify-frontend`
+- **Log Analytics Workspace**: `log-grubify`
 
 ### 6. Ready for SRE Scenarios
 

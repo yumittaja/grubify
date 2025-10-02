@@ -19,12 +19,12 @@ param apiImage string = ''
 param frontendImage string = ''
 
 var abbrs = loadJsonContent('abbreviations.json')
-var resourceToken = toLower(uniqueString(subscription().id, location, environmentName))
+var resourceToken = 'grubify'  // Fixed naming instead of random string
 var tags = { 'azd-env-name': environmentName }
 
 // Organize resources in a resource group
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
-  name: !empty(resourceGroupName) ? resourceGroupName : '${abbrs.resourcesResourceGroups}${environmentName}'
+  name: !empty(resourceGroupName) ? resourceGroupName : 'rg-grubify-app'
   location: location
   tags: tags
 }
@@ -56,7 +56,7 @@ module api 'core/host/container-app.bicep' = {
   name: 'api'
   scope: rg
   params: {
-    name: '${abbrs.appContainerApps}api-${resourceToken}'
+    name: 'ca-grubify-api'
     location: location
     tags: union(tags, { 'azd-service-name': 'api' })
     containerAppsEnvironmentName: containerAppsEnvironment.outputs.name
@@ -74,7 +74,7 @@ module api 'core/host/container-app.bicep' = {
       }
       {
         name: 'AllowedOrigins__0'
-        value: 'https://${abbrs.appContainerApps}frontend-${resourceToken}.${containerAppsEnvironment.outputs.defaultDomain}'
+        value: 'https://ca-grubify-frontend.${containerAppsEnvironment.outputs.defaultDomain}'
       }
     ]
   }
@@ -85,7 +85,7 @@ module frontend 'core/host/container-app.bicep' = {
   name: 'frontend'
   scope: rg
   params: {
-    name: '${abbrs.appContainerApps}frontend-${resourceToken}'
+    name: 'ca-grubify-frontend'
     location: location
     tags: union(tags, { 'azd-service-name': 'frontend' })
     containerAppsEnvironmentName: containerAppsEnvironment.outputs.name
