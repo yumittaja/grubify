@@ -101,7 +101,7 @@ Now you have:
 - ✅ **Infrastructure configured** for testing scenarios
 
 **SRE Agent Setup:**
-1. **Create agent** - **srea-007-eastus-923** ([Azure SRE Agent Learn Page](https://learn.microsoft.com/en-us/azure/sre-agent/))
+1. **Create agent** - ([Azure SRE Agent Usage Guide](https://learn.microsoft.com/en-us/azure/sre-agent/usage))
 2. **Map GitHub repo** that you cloned this to: **https://github.com/dm-chelupati/grubify.git**
 3. **Connect Service Now** to your SRE agent
 4. **Setup incident handler** with custom instructions for automated diagnosis and mitigation
