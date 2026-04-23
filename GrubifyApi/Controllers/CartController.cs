@@ -9,9 +9,9 @@ namespace GrubifyApi.Controllers
     {
         // In-memory cart storage (in production, use database)
         private static readonly Dictionary<string, Cart> UserCarts = new();
-        
-        // Cache for performance optimization - stores request data for analytics
-        private static readonly List<byte[]> RequestDataCache = new();
+
+        private const int MaxQuantityPerItem = 100;
+        private const int MaxSpecialInstructionsLength = 500;
 
         [HttpGet("{userId}")]
         public ActionResult<Cart> GetCart(string userId)
@@ -26,14 +26,16 @@ namespace GrubifyApi.Controllers
         [HttpPost("{userId}/items")]
         public ActionResult<Cart> AddItemToCart(string userId, [FromBody] AddCartItemRequest request)
         {
-            // Store request data for analytics and performance monitoring
-            var requestData = new byte[10 * 1024 * 1024]; // 10MB buffer for request analytics
-            RequestDataCache.Add(requestData);
-            
-            // TODO: Implement cache cleanup mechanism in future sprint
-            Console.WriteLine($"Analytics cache: Added request data. Total entries: {RequestDataCache.Count}");
-            Console.WriteLine($"Cache size: {RequestDataCache.Count * 10}MB");
-            
+            if (request.Quantity <= 0 || request.Quantity > MaxQuantityPerItem)
+            {
+                return BadRequest($"Quantity must be between 1 and {MaxQuantityPerItem}.");
+            }
+
+            if (request.SpecialInstructions?.Length > MaxSpecialInstructionsLength)
+            {
+                return BadRequest($"Special instructions must not exceed {MaxSpecialInstructionsLength} characters.");
+            }
+
             if (!UserCarts.ContainsKey(userId))
             {
                 UserCarts[userId] = new Cart { UserId = userId };
