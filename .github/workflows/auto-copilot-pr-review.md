@@ -26,9 +26,15 @@ tools:
     toolsets: [default]
 safe-outputs:
   # Actually requests Copilot as a PR reviewer via the GitHub API
-  # (POST /repos/{owner}/{repo}/pulls/{number}/requested_reviewers)
-  # instead of just posting an `@copilot review` mention comment.
+  # instead of posting an `@copilot review` mention comment.
+  # The literal token `copilot` is recognized by gh-aw and mapped to the
+  # Copilot PR reviewer bot — do NOT use the human-readable
+  # `copilot-pull-request-reviewer` login here, because the
+  # requested_reviewers API requires the target to be a repo collaborator
+  # and rejects raw bot logins with "Reviews may only be requested from
+  # collaborators."
   add-reviewer:
+    reviewers: [copilot]
     max: 1
   # Used only for the conditional implementation handoff after Copilot's
   # review surfaces actionable suggestions.
@@ -44,8 +50,8 @@ You are an AI workflow agent that ensures pull requests get Copilot assigned as 
 ## Your Task
 
 1. Confirm the trigger references a pull request (`pull_request` or `pull_request_review`).
-2. Check whether `copilot-pull-request-reviewer` is already a requested reviewer or has already submitted a review on the pull request.
-3. If Copilot is not already a requested reviewer and has not already reviewed, request Copilot as a reviewer using the `add-reviewer` safe output with reviewer login `copilot-pull-request-reviewer`.
+2. Check whether the Copilot PR reviewer bot (`copilot-pull-request-reviewer[bot]` / `copilot-pull-request-reviewer`) is already a requested reviewer or has already submitted a review on the pull request.
+3. If Copilot is not already a requested reviewer and has not already reviewed, request Copilot as a reviewer using the `add-reviewer` safe output with the reviewer value exactly `copilot` (the special token recognized by gh-aw — do NOT pass `copilot-pull-request-reviewer`, the API rejects bot logins).
 4. Inspect review outcomes and review comments to determine whether actionable suggestions are present (a review with state `CHANGES_REQUESTED` or any non-empty review comments count as actionable).
 5. Only if actionable suggestions exist AND there is no existing implementation handoff comment from this workflow, post one concise comment with the `add-comment` safe output:
 
