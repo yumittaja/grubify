@@ -17,6 +17,6 @@ hooks:
   postdeploy:
     shell: pwsh
     run: |
-      echo "🍕 Grubify Food Delivery App deployed successfully!"
+      echo "Snack4U deployed successfully!"
       echo "Frontend URL: $env:FRONTEND_URL"
       echo "API URL: $env:API_BASE_URL"

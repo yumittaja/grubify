@@ -122,20 +122,20 @@ const HomePage: React.FC = () => {
     <Container maxWidth="xl">
       {/* Hero Section */}
       <Box
-        sx={{
-          backgroundImage: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)',
+        sx={(theme) => ({
+          backgroundImage: `linear-gradient(135deg, ${theme.palette.primary.dark} 0%, ${theme.palette.secondary.main} 100%)`,
           borderRadius: 3,
-          color: 'white',
+          color: theme.palette.primary.contrastText,
           p: 6,
           mb: 4,
           textAlign: 'center',
-        }}
+        })}
       >
         <Typography variant="h2" component="h1" gutterBottom>
-          Delicious Food, Delivered Fast
+          Snack4U &mdash; Cravings, delivered.
         </Typography>
         <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
-          Order from your favorite restaurants and get it delivered in minutes
+          Premium picks from your favorite spots, on your doorstep.
         </Typography>
         
         {/* Search Bar */}
@@ -152,10 +152,11 @@ const HomePage: React.FC = () => {
                   <SearchIcon />
                 </InputAdornment>
               ),
-              sx: {
-                backgroundColor: 'white',
+              sx: (theme) => ({
+                backgroundColor: theme.palette.background.paper,
+                color: theme.palette.text.primary,
                 borderRadius: 2,
-              },
+              }),
             }}
           />
         </Box>

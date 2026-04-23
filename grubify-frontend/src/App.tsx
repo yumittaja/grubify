@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import { Container } from '@mui/material';
 
@@ -11,46 +11,14 @@ import RestaurantPage from './pages/RestaurantPage';
 import CartPage from './pages/CartPage';
 import CheckoutPage from './pages/CheckoutPage';
 import OrderTrackingPage from './pages/OrderTrackingPage';
+import { ColorModeProvider, useColorMode } from './theme/ColorModeContext';
+import { getTheme } from './theme';
 import './App.css';
 
-const theme = createTheme({
-  palette: {
-    primary: {
-      main: '#FF6B35', // Orange
-      light: '#FF8A65',
-      dark: '#E65100',
-    },
-    secondary: {
-      main: '#4CAF50', // Green
-      light: '#81C784',
-      dark: '#388E3C',
-    },
-    background: {
-      default: '#F5F5F5',
-      paper: '#FFFFFF',
-    },
-  },
-  typography: {
-    fontFamily: '"Roboto", "Helvetica", "Arial", sans-serif',
-    h1: {
-      fontSize: '3rem',
-      fontWeight: 700,
-    },
-    h2: {
-      fontSize: '2.5rem',
-      fontWeight: 600,
-    },
-    h3: {
-      fontSize: '2rem',
-      fontWeight: 600,
-    },
-  },
-  shape: {
-    borderRadius: 12,
-  },
-});
+const ThemedApp: React.FC = () => {
+  const { mode } = useColorMode();
+  const theme = useMemo(() => getTheme(mode), [mode]);
 
-function App() {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
@@ -69,6 +37,14 @@ function App() {
         </div>
       </Router>
     </ThemeProvider>
+  );
+};
+
+function App() {
+  return (
+    <ColorModeProvider>
+      <ThemedApp />
+    </ColorModeProvider>
   );
 }
 

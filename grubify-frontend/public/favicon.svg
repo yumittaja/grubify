@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Snack4U">
+  <title>Snack4U</title>
+  <!-- Stylized "S4U" mark in Snack4U gold (#D4AF37) on transparent background. -->
+  <g fill="none" stroke="#D4AF37" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">
+    <!-- S curve -->
+    <path d="M24 14 Q12 14 12 22 Q12 30 24 30 Q36 30 36 38 Q36 46 24 46" />
+  </g>
+  <g fill="#D4AF37" font-family="'Inter','Segoe UI',system-ui,sans-serif" font-weight="700">
+    <!-- 4 U lockup -->
+    <text x="40" y="34" font-size="20" text-anchor="middle">4</text>
+    <text x="40" y="52" font-size="14" text-anchor="middle">U</text>
+  </g>
+</svg>

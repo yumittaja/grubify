@@ -1,6 +1,8 @@
-# Grubify - Food Delivery App
+# Snack4U - Food Delivery App
 
 A modern food delivery application built with React TypeScript frontend and .NET backend, designed for deployment to Azure Container Apps using Azure Developer CLI (azd).
+
+> Snack4U is the public brand. Source folders, Azure resource names, and the .NET project (`GrubifyApi`) intentionally retain the legacy `grubify` token to avoid resource recreation.
 
 ## 🍕 Features
 
@@ -19,11 +21,11 @@ A modern food delivery application built with React TypeScript frontend and .NET
 
 ## 🚀 Complete Deployment Guide
 
-This guide shows how to deploy Grubify with **both backend versions** (v1 with memory leak, v2 with payment failures) for testing Azure SRE Agent scenarios.
+This guide shows how to deploy Snack4U with **both backend versions** (v1 with memory leak, v2 with payment failures) for testing Azure SRE Agent scenarios.
 
 ## 📋 Prerequisites
 
-Before deploying Grubify, ensure you have the following tools installed and running:
+Before deploying Snack4U, ensure you have the following tools installed and running:
 
 ### Required Tools
 - **[Azure Developer CLI (azd)](https://learn.microsoft.com/en-us/azure/developer/azure-developer-cli/install-azd)** - Latest version

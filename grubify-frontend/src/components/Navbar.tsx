@@ -15,8 +15,11 @@ import {
   Search as SearchIcon,
   ShoppingCart as ShoppingCartIcon,
   Restaurant as RestaurantIcon,
+  Brightness4 as Brightness4Icon,
+  Brightness7 as Brightness7Icon,
 } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { useColorMode } from '../theme/ColorModeContext';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -61,6 +64,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 
 const Navbar: React.FC = () => {
   const navigate = useNavigate();
+  const { mode, toggleColorMode } = useColorMode();
   const [searchQuery, setSearchQuery] = useState('');
   const [cartItemCount] = useState(3); // This would come from a cart context in a real app
 
@@ -104,7 +108,7 @@ const Navbar: React.FC = () => {
           }}
           onClick={handleLogoClick}
         >
-          Grubify
+          Snack4U
         </Typography>
 
         <Box sx={{ flexGrow: 1 }} />
@@ -126,6 +130,15 @@ const Navbar: React.FC = () => {
         <Button color="inherit" sx={{ mr: 2 }}>
           Sign In
         </Button>
+
+        <IconButton
+          color="inherit"
+          aria-label={mode === 'dark' ? 'switch to light mode' : 'switch to dark mode'}
+          onClick={toggleColorMode}
+          sx={{ mr: 1 }}
+        >
+          {mode === 'dark' ? <Brightness7Icon /> : <Brightness4Icon />}
+        </IconButton>
 
         <IconButton
           color="inherit"
