@@ -5,6 +5,10 @@ on:
     types: [opened, reopened, synchronize]
   pull_request_review:
     types: [submitted, edited]
+  # Skip when Copilot itself is the actor — its identity is not a repo
+  # collaborator, so the gh-aw permission pre-activation check would fail
+  # ("Copilot is not a user"). Also prevents bot-to-bot loops.
+  skip-bots: [copilot, github-actions]
 permissions:
   contents: read
   pull-requests: read
