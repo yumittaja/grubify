@@ -29,6 +29,7 @@ import {
 import { useParams, useNavigate } from 'react-router-dom';
 import { Restaurant, FoodItem } from '../types';
 import { restaurantService, foodItemService, cartService } from '../services/api';
+import { formatEta } from '../utils/eta';
 
 const RestaurantPage: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -146,6 +147,18 @@ const RestaurantPage: React.FC = () => {
             <Typography variant="h3" component="h1" gutterBottom>
               {restaurant.name}
             </Typography>
+            <Box sx={{ mb: 1 }}>
+              <Chip
+                icon={<TimeIcon sx={{ fontSize: 16, color: 'inherit !important' }} />}
+                label={formatEta(restaurant, 'ETA ')}
+                size="small"
+                sx={{
+                  backgroundColor: 'rgba(255,255,255,0.9)',
+                  color: 'text.primary',
+                  fontWeight: 500,
+                }}
+              />
+            </Box>
             <Typography variant="h6" sx={{ opacity: 0.9 }}>
               {restaurant.description}
             </Typography>
@@ -162,7 +175,7 @@ const RestaurantPage: React.FC = () => {
             <Box sx={{ display: 'flex', alignItems: 'center' }}>
               <TimeIcon sx={{ mr: 1, color: 'text.secondary' }} />
               <Typography variant="body1">
-                {restaurant.deliveryTime}
+                {formatEta(restaurant)}
               </Typography>
             </Box>
             <Box sx={{ display: 'flex', alignItems: 'center' }}>

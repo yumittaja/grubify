@@ -24,6 +24,7 @@ import {
 import { useNavigate, useSearchParams } from 'react-router-dom';
 import { Restaurant } from '../types';
 import { restaurantService } from '../services/api';
+import { formatEta, hasEta } from '../utils/eta';
 
 const cuisineTypes = [
   'All',
@@ -242,13 +243,14 @@ const HomePage: React.FC = () => {
                 </Typography>
               </Box>
               
-              <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 1 }}>
-                <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                  <TimeIcon sx={{ fontSize: 16, mr: 0.5, color: 'text.secondary' }} />
-                  <Typography variant="body2" color="text.secondary">
-                    {restaurant.deliveryTime}
-                  </Typography>
-                </Box>
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1, flexWrap: 'wrap' }}>
+                <Chip
+                  icon={<TimeIcon sx={{ fontSize: 16 }} />}
+                  label={formatEta(restaurant)}
+                  size="small"
+                  color={hasEta(restaurant) ? 'primary' : 'default'}
+                  variant="outlined"
+                />
                 <Box sx={{ display: 'flex', alignItems: 'center' }}>
                   <DeliveryIcon sx={{ fontSize: 16, mr: 0.5, color: 'text.secondary' }} />
                   <Typography variant="body2" color="text.secondary">
