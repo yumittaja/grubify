@@ -2,12 +2,20 @@
 description: Automatically request Copilot code review for pull requests.
 on:
   pull_request:
-    types: [opened, reopened, synchronize]
+    # Intentionally omit `synchronize` so Copilot's own push commits
+    # (after an implementation handoff) do not re-trigger this workflow.
+    types: [opened, reopened]
   pull_request_review:
     types: [submitted, edited]
-  # Skip when Copilot itself is the actor — its identity is not a repo
-  # collaborator, so the gh-aw permission pre-activation check would fail
-  # ("Copilot is not a user"). Also prevents bot-to-bot loops.
+  # Required: the default membership check (`on.roles`) calls the repo
+  # collaborator permission API for `github.actor`. When the actor is the
+  # Copilot bot identity, that API errors with "Copilot is not a user" and
+  # fails pre-activation before `skip-bots` is evaluated. Allowing all roles
+  # bypasses the membership check; safety is preserved by
+  # `safe-outputs.add-comment.max: 1` and the skip-bots loop guard below.
+  roles: all
+  # Belt-and-suspenders loop prevention: also drop events whose actor is
+  # the Copilot or github-actions bot.
   skip-bots: [copilot, github-actions]
 permissions:
   contents: read
