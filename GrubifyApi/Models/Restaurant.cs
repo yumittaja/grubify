@@ -10,6 +10,8 @@ namespace GrubifyApi.Models
         public string Address { get; set; } = string.Empty;
         public string CuisineType { get; set; } = string.Empty;
         public string DeliveryTime { get; set; } = string.Empty; // e.g., "25-40 min"
+        public int? EtaMinMinutes { get; set; }
+        public int? EtaMaxMinutes { get; set; }
         public decimal DeliveryFee { get; set; }
         public decimal MinimumOrder { get; set; }
         public bool IsOpen { get; set; }
