@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Typography,
@@ -11,7 +11,6 @@ import {
   RadioGroup,
   FormControlLabel,
   FormControl,
-  FormLabel,
   Paper,
   Divider,
   Alert,
@@ -56,11 +55,7 @@ const CheckoutPage: React.FC = () => {
     nameOnCard: '',
   });
 
-  useEffect(() => {
-    fetchCart();
-  }, []);
-
-  const fetchCart = async () => {
+  const fetchCart = useCallback(async () => {
     try {
       setLoading(true);
       const cartData = await cartService.get('user123');
@@ -75,7 +70,11 @@ const CheckoutPage: React.FC = () => {
     } finally {
       setLoading(false);
     }
-  };
+  }, [navigate]);
+
+  useEffect(() => {
+    fetchCart();
+  }, [fetchCart]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -186,7 +185,7 @@ const CheckoutPage: React.FC = () => {
             p: 4,
           }}
         >
-          <Card sx={{ p: 4, width: '100%', maxWidth: 500, border: '1px solid #f44336' }}>
+          <Card sx={{ p: 4, width: '100%', maxWidth: 500, border: (theme) => `1px solid ${theme.palette.error.main}` }}>
             <CreditCardIcon sx={{ fontSize: 80, color: 'error.main', mb: 2 }} />
             <Typography variant="h4" component="h1" gutterBottom color="error.main" fontWeight="bold">
               Payment System Error

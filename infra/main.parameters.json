@@ -16,6 +16,9 @@
     },
     "frontendImage": {
       "value": "${SERVICE_FRONTEND_IMAGE_NAME}"
+    },
+    "brandName": {
+      "value": "Snack4U"
     }
   }
 }

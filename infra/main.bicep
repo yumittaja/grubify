@@ -18,9 +18,15 @@ param apiImage string = ''
 @description('Frontend container image')
 param frontendImage string = ''
 
+@description('Display brand name used in tags and outputs only')
+param brandName string = 'Snack4U'
+
 var abbrs = loadJsonContent('abbreviations.json')
 var resourceToken = 'grubify'  // Fixed naming instead of random string
-var tags = { 'azd-env-name': environmentName }
+var tags = {
+  'azd-env-name': environmentName
+  'brand-name': brandName
+}
 
 // Organize resources in a resource group
 resource rg 'Microsoft.Resources/resourceGroups@2021-04-01' = {
@@ -116,3 +122,4 @@ output AZURE_CONTAINER_REGISTRY_NAME string = containerRegistry.outputs.name
 
 output API_BASE_URL string = 'https://${api.outputs.fqdn}'
 output FRONTEND_URL string = 'https://${frontend.outputs.fqdn}'
+output BRAND_NAME string = brandName

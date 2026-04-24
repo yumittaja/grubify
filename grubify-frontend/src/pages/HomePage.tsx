@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   Typography,
@@ -13,7 +13,6 @@ import {
   CircularProgress,
   Alert,
   TextField,
-  MenuItem,
   InputAdornment,
 } from '@mui/material';
 import {
@@ -51,10 +50,6 @@ const HomePage: React.FC = () => {
     fetchRestaurants();
   }, []);
 
-  useEffect(() => {
-    filterRestaurants();
-  }, [restaurants, selectedCuisine, searchQuery]);
-
   const fetchRestaurants = async () => {
     try {
       setLoading(true);
@@ -69,7 +64,7 @@ const HomePage: React.FC = () => {
     }
   };
 
-  const filterRestaurants = () => {
+  const filterRestaurants = useCallback(() => {
     let filtered = restaurants;
 
     // Filter by cuisine
@@ -89,7 +84,11 @@ const HomePage: React.FC = () => {
     }
 
     setFilteredRestaurants(filtered);
-  };
+  }, [restaurants, selectedCuisine, searchQuery]);
+
+  useEffect(() => {
+    filterRestaurants();
+  }, [filterRestaurants]);
 
   const handleRestaurantClick = (restaurantId: number) => {
     navigate(`/restaurant/${restaurantId}`);
@@ -123,7 +122,8 @@ const HomePage: React.FC = () => {
       {/* Hero Section */}
       <Box
         sx={{
-          backgroundImage: 'linear-gradient(135deg, #FF6B35 0%, #F7931E 100%)',
+          background: (theme) =>
+            `linear-gradient(135deg, ${theme.palette.primary.main} 0%, ${theme.palette.secondary.main} 100%)`,
           borderRadius: 3,
           color: 'white',
           p: 6,
@@ -132,10 +132,10 @@ const HomePage: React.FC = () => {
         }}
       >
         <Typography variant="h2" component="h1" gutterBottom>
-          Delicious Food, Delivered Fast
+          Snack4U, Elevated Everyday
         </Typography>
         <Typography variant="h6" sx={{ mb: 4, opacity: 0.9 }}>
-          Order from your favorite restaurants and get it delivered in minutes
+          Premium picks from your favorite kitchens, delivered with speed and style.
         </Typography>
         
         {/* Search Bar */}
@@ -153,7 +153,7 @@ const HomePage: React.FC = () => {
                 </InputAdornment>
               ),
               sx: {
-                backgroundColor: 'white',
+                backgroundColor: 'background.paper',
                 borderRadius: 2,
               },
             }}

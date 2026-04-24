@@ -42,7 +42,7 @@ const getStatusColor = (status: OrderStatus) => {
     case OrderStatus.Preparing:
       return 'warning';
     case OrderStatus.OutForDelivery:
-      return 'primary';
+      return 'info';
     case OrderStatus.Delivered:
       return 'success';
     case OrderStatus.Cancelled:
