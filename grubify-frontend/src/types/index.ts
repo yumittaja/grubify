@@ -6,6 +6,8 @@ export interface Restaurant {
   cuisineType: string;
   rating: number;
   deliveryTime: string;
+  etaMin?: number;
+  etaMax?: number;
   deliveryFee: number;
   minimumOrder: number;
   isOpen: boolean;
