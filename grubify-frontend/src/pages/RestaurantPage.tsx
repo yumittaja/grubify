@@ -146,6 +146,23 @@ const RestaurantPage: React.FC = () => {
             <Typography variant="h3" component="h1" gutterBottom>
               {restaurant.name}
             </Typography>
+            <Box sx={{ mb: 1 }}>
+              <Chip
+                icon={<TimeIcon sx={{ color: 'inherit !important' }} />}
+                label={
+                  restaurant.etaMin != null && restaurant.etaMax != null
+                    ? `ETA ${restaurant.etaMin}-${restaurant.etaMax} min`
+                    : 'ETA unavailable'
+                }
+                size="small"
+                sx={{
+                  color: 'white',
+                  borderColor: 'rgba(255,255,255,0.7)',
+                  backgroundColor: 'rgba(0,0,0,0.35)',
+                }}
+                variant="outlined"
+              />
+            </Box>
             <Typography variant="h6" sx={{ opacity: 0.9 }}>
               {restaurant.description}
             </Typography>

@@ -256,13 +256,30 @@ const HomePage: React.FC = () => {
                   </Typography>
                 </Box>
               </Box>
-              
-              <Chip
-                label={restaurant.cuisineType}
-                size="small"
-                variant="outlined"
-                color="primary"
-              />
+
+              <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1, flexWrap: 'wrap' }}>
+                <Chip
+                  icon={<TimeIcon />}
+                  label={
+                    restaurant.etaMin != null && restaurant.etaMax != null
+                      ? `ETA ${restaurant.etaMin}-${restaurant.etaMax} min`
+                      : 'ETA unavailable'
+                  }
+                  size="small"
+                  color={
+                    restaurant.etaMin != null && restaurant.etaMax != null
+                      ? 'secondary'
+                      : 'default'
+                  }
+                  variant="outlined"
+                />
+                <Chip
+                  label={restaurant.cuisineType}
+                  size="small"
+                  variant="outlined"
+                  color="primary"
+                />
+              </Box>
             </CardContent>
             <CardActions sx={{ p: 2, pt: 0 }}>
               <Button
